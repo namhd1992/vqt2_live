@@ -54,9 +54,9 @@ class Ultilities {
 
 	static base_url = () => {
 		//live
-			// return "https://server.splay.vn/";
+			return "https://ghepchuscoin-server.splay.vn/";
 		//dev
-			return "http://171.244.14.44:8083/";
+			// return "http://171.244.14.44:9093/";
 	}
 
 	static splay_api_key = () => {
