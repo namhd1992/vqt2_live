@@ -120,6 +120,7 @@ class Lucky_Rotation extends React.Component {
 			dataTuDo:[],
 			dataCodeBonus:[],	
 			listHistory:[],
+			textAuto: true,
 			
 			listCountBonus:[],
 			width:0,
@@ -156,7 +157,7 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
-			this.props.getRotationDetailDataUser(user.access_token, 119).then(()=>{
+			this.props.getRotationDetailDataUser(user.access_token, 1).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
 					if(data.status==='01'){
@@ -173,7 +174,7 @@ class Lucky_Rotation extends React.Component {
 				
 			});
 		} else {
-			this.props.getRotationDetailData(119).then(()=>{
+			this.props.getRotationDetailData(1).then(()=>{
 				var data=this.props.dataRotation;
 				if(data!==undefined){
 					if(data.status==='01'){
@@ -408,9 +409,9 @@ class Lucky_Rotation extends React.Component {
 							this.setState({timeout: timeout});	
 						}
 					}else{
-						$('#myModal6').modal('show');
+						this.setState({textAuto:false})
 					}
-					this.setState({turnsFree:turnsFree})
+					this.setState({turnsFree:turnsFree, turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo})
 				}else if(data.status ==="04"){
 					$('#myModal13').modal('show');
 				}else{
@@ -548,7 +549,7 @@ class Lucky_Rotation extends React.Component {
 
 	getVinhDanh=(pageNumber)=>{
 		const {limit, luckySpin, type_item}=this.state;
-		this.props.getVinhDanh(119, 10, (pageNumber-1), type_item).then(()=>{
+		this.props.getVinhDanh(1, 10, (pageNumber-1), type_item).then(()=>{
 			var data=this.props.dataVinhDanh;
 			if(data!==undefined){
 				
@@ -715,7 +716,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
+		const {textAuto, soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
 			activeRuong, activeHistory, activeBonus, activeVinhDanh, limit, countCodeBonus, countRuong, countKey, countVinhDanh, listHistory, listCodeBonus, listRuong, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, user}=this.state;
 		const { classes } = this.props;
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
@@ -793,13 +794,15 @@ class Lucky_Rotation extends React.Component {
 					<h4 class="font18 font-iCielPantonLight font-weight-bold">II. Cách nhận chìa khóa mở rương báu:</h4>
 					<div class="box-thele">
 						<div class="step-thele mx-auto">
+							<p>Nạp thẻ Scoin/ thẻ Scoin vào các game do VTC Mobile phát hành.</p>
 							<ul>
-								<li>Nạp thẻ Scoin/ thẻ Scoin vào các game do VTC Mobile phát hành.</li>
-								<li>Tích lũy 100.000 Điêm nhận 1 <img src={key_yellow_icon} width="20"/> Chìa khóa mở rương.</li>
+								<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ Thẻ Scoin sẽ nhận được 2 Điểm</li>
+								<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ ví Scoin sẽ nhận được 1 Điểm.</li>
+								<li class="font-iCielPantonBlack text-brown">Mỗi 100.000 Điểm bạn nhận được 01 Chìa khóa được hệ thống tự động quy đổi.</li>
 							</ul>
 							<div style={{border:'1px solid', padding:10, margin: 10}}>
-								<p style={{marginBottom:5}}>Số điểm đã tích lũy: {turnsBuyInfo.totalTopupOfUser ? turnsBuyInfo.totalTopupOfUser.toLocaleString() : 0} Điểm</p>
-								<p style={{color:'red', fontWeight:'bold'}}>Cần nạp thêm {turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin từ ví hoặc {turnsBuyInfo.cardBalanceRounding ? turnsBuyInfo.cardBalanceRounding.toLocaleString(): 0}Đ từ thẻ Scoin để nhận 01 Chìa khóa miễn phí!</p>
+								<p style={{marginBottom:5}}>Số điểm đã tích lũy: {turnsBuyInfo.accumulationPoint ? turnsBuyInfo.accumulationPoint.toLocaleString() : 0} Điểm</p>
+								<p class="font-iCielPantonBlack text-brown" style={{fontWeight:'bold'}}>Cần nạp thêm tối thiểu <span class="text-red font-iCielPantonBlack" style={{color:'red'}}> {turnsBuyInfo.cardBalanceRounding ? turnsBuyInfo.cardBalanceRounding.toLocaleString(): 0} Scoin từ thẻ Scoin</span> hoặc <span class="font-iCielPantonBlack" style={{color:'red'}}>{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin từ ví </span>  để nhận 01 Chìa khóa miễn phí!</p>
 								<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font16" data-toggle="modal" onClick={this.openThemLuot}>Thêm Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></a></p>
 							</div>
 						</div>
@@ -1058,14 +1061,16 @@ class Lucky_Rotation extends React.Component {
 							<div class="w-75 mx-auto">
 								<p class="font-iCielPantonBlack text-brown pt-5">Bạn muốn nhận thêm Chìa khóa mở rương báu Scoin?</p>
 								<ul>
-									<li class="font-iCielPantonBlack text-brown">Nạp ví Scoin/ thẻ Scoin vào game do VTC Mobile phát hành.</li>
-									<li class="font-iCielPantonBlack text-brown">Tích lũy 100.000 Điểm nhận 1 Chìa khóa mở rương</li>
+									<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ Thẻ Scoin sẽ nhận được 2 Điểm</li>
+									<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ ví Scoin sẽ nhận được 1 Điểm.</li>
+									<li class="font-iCielPantonBlack text-brown">Mỗi 100.000 Điểm bạn nhận được 01 Chìa khóa được hệ thống tự động quy đổi.</li>
 								</ul>				
 								<p class="font-iCielPantonBlack text-brown">(không giới hạn giá trị nạp & số lần nạp)</p>
 								<div class="alert alert-giaithuong">
-									<p class="font-iCielPantonBlack text-brown">Số điểm đã tích lũy: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.totalTopupOfUser ? turnsBuyInfo.totalTopupOfUser.toLocaleString() : 0} Điểm</span></p>	
-									<p class="font-iCielPantonBlack text-brown" style={{fontWeight:'bold'}}>Cần nạp thêm <span class="font-iCielPantonBlack" style={{color:'red'}}>{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin từ ví </span> hoặc <span class="text-red font-iCielPantonBlack" style={{color:'red'}}> {turnsBuyInfo.cardBalanceRounding ? turnsBuyInfo.cardBalanceRounding.toLocaleString(): 0}Đ từ thẻ Scoin</span> để nhận 01 Chìa khóa miễn phí!</p>
+									<p class="font-iCielPantonBlack text-brown">Số điểm đã tích lũy: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.accumulationPoint ? turnsBuyInfo.accumulationPoint.toLocaleString() : 0} Điểm</span></p>	
+									<p class="font-iCielPantonBlack text-brown" style={{fontWeight:'bold'}}>Cần nạp thêm tối thiểu <span class="text-red font-iCielPantonBlack" style={{color:'red'}}> {turnsBuyInfo.cardBalanceRounding ? turnsBuyInfo.cardBalanceRounding.toLocaleString(): 0} Scoin từ thẻ Scoin</span> hoặc <span class="font-iCielPantonBlack" style={{color:'red'}}>{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin từ ví </span>  để nhận 01 Chìa khóa miễn phí!</p>
 								</div>
+								<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid napGame" /></a></p>
 							</div>
 						</div>	  
 					</div>
@@ -1115,17 +1120,17 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body">
 						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0">Lịch Sử</h2>
 						<div class="">
-							<ul class="nav nav-pills justify-content-between pag-custom">
-							<li class="nav-item">
-								<a class="nav-link active font16 px-2" data-toggle="tab" href="#TGiaiThuong" onClick={this.getBonus}>Giải thưởng</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link font16 px-2" data-toggle="tab" href="#TMoRuong" onClick={()=>this.getRuong(user,activeRuong)}>Mở Rương</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link font16 px-2" data-toggle="tab" href="#TNhanChiaKhoa" onClick={()=>this.getKey(user,activeKey)}>Nhận chìa khóa</a>
-							</li>
-							</ul>            
+							<ul class="nav nav-pills nav-justified pop-custom">
+								<li class="nav-item">
+									<a class="nav-link active font16 px-2" data-toggle="tab" href="#TGiaiThuong" onClick={this.getBonus}>Giải thưởng</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link font16 px-2" data-toggle="tab" href="#TMoRuong" onClick={()=>this.getRuong(user,activeRuong)}>Mở Rương</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link font16 px-2" data-toggle="tab" href="#TNhanChiaKhoa" onClick={()=>this.getKey(user,activeKey)}>Nhận chìa khóa</a>
+								</li>
+							</ul>
 							<div class="tab-content">
 							<div class="tab-pane container active" id="TGiaiThuong">
 								<div class="d-pc-none pt-3">
@@ -1387,15 +1392,16 @@ class Lucky_Rotation extends React.Component {
 						<div class="w-75 mx-auto">
 							<h3 class="font-iCielPantonBlack text-brown pt-5">HẾT CHÌA KHÓA</h3>
 							<ul>
-								<li class="font-iCielPantonBlack text-brown">Nạp ví Scoin/ thẻ Scoin vào game do VTC Mobile phát hành.</li>
-								<li class="font-iCielPantonBlack text-brown">Tích lũy 100.000 Điểm nhận 1 Chìa khóa mở rương</li>
+								<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ Thẻ Scoin sẽ nhận được 2 Điểm</li>
+								<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ ví Scoin sẽ nhận được 1 Điểm.</li>
+								<li class="font-iCielPantonBlack text-brown">Mỗi 100.000 Điểm bạn nhận được 01 Chìa khóa được hệ thống tự động quy đổi.</li>
 							</ul>				
 							<p class="font-iCielPantonBlack text-brown">(không giới hạn giá trị nạp & số lần nạp)</p>
 							<div class="alert alert-giaithuong">
-								<p class="font-iCielPantonBlack text-brown">Số điểm đã tích lũy: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.totalTopupOfUser ? turnsBuyInfo.totalTopupOfUser.toLocaleString() : 0} Điểm</span></p>
-								
-								<p class="font-iCielPantonBlack text-brown" style={{fontWeight:'bold'}}>Cần nạp thêm <span class="text-red font-iCielPantonBlack">{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin từ ví hoặc {turnsBuyInfo.cardBalanceRounding ? turnsBuyInfo.cardBalanceRounding.toLocaleString(): 0}Đ từ thẻ Scoin để nhận 01 Chìa khóa miễn phí!</span></p>
+								<p class="font-iCielPantonBlack text-brown">Số điểm đã tích lũy: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.accumulationPoint ? turnsBuyInfo.accumulationPoint.toLocaleString() : 0} Điểm</span></p>	
+								<p class="font-iCielPantonBlack text-brown" style={{fontWeight:'bold'}}>Cần nạp thêm tối thiểu <span class="text-red font-iCielPantonBlack" style={{color:'red'}}> {turnsBuyInfo.cardBalanceRounding ? turnsBuyInfo.cardBalanceRounding.toLocaleString(): 0} Scoin từ thẻ Scoin</span> hoặc <span class="font-iCielPantonBlack" style={{color:'red'}}>{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin từ ví </span>  để nhận 01 Chìa khóa miễn phí!</p>
 							</div>
+							<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid napGame" /></a></p>
 						</div>
 					</div>	  
 					</div>
@@ -1485,7 +1491,10 @@ class Lucky_Rotation extends React.Component {
 						
 						</div>
 						<p className="text-thele">Vào <code style={{color:'red'}}><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
-						<p className="text-thele text-center"><code style={{color:'red'}} className="font-iCielPantonBlack">Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
+						{(textAuto)?(<p className="text-thele text-center"><code style={{color:'red'}} className="font-iCielPantonBlack">Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>):(
+							<p className="text-thele text-center font-iCielPantonBlack" style={{color:'red'}}>Đã dùng hết Chìa khóa</p>
+						)}
+						
 						
 					</div>
 

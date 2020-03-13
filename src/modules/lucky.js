@@ -289,7 +289,7 @@ export const getCountBonus = () => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "anonymous/lucky-spin-history/gift-quantity-exist?lucky_spin_id=" + 120;
+		var url = Ultilities.base_url() + "anonymous/lucky-spin-history/gift-quantity-exist?lucky_spin_id=" + 1;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_COUNT_BONUS,
