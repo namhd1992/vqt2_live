@@ -54,9 +54,9 @@ class Ultilities {
 
 	static base_url = () => {
 		//live
-			// return "https://server.splay.vn/";
+			return "https://server-event.splay.vn/";
 		//dev
-			return "http://171.244.14.44:8083/";
+			// return "http://171.244.14.44:8083/";
 	}
 
 	static splay_api_key = () => {
