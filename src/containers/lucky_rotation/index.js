@@ -789,7 +789,7 @@ class Lucky_Rotation extends React.Component {
 					<h4 class="font18 font-iCielPantonLight font-weight-bold">I. Đối tượng tham gia</h4>
 					<ul className='thele_3'>
 						<li>Tất cả game thủ có tài khoản Scoin. Nếu chưa có <a href="https://scoin.vn/" title="Đăng ký" target="_blank">Đăng ký tại đây</a>. </li>
-						<li>Thời gian SK diễn ra từ 10:00 ngày 20.12.2019 - hết ngày 20.01.2020. Sau khi kết thúc, số chìa khóa sẽ được xóa khỏi hệ thống.</li>
+						<li>Thời gian SK diễn ra từ 10:00 ngày 19.03 - hết ngày 18.04.2020. Sau khi kết thúc, số chìa khóa sẽ được xóa khỏi hệ thống.</li>
 					</ul>
 					<h4 class="font18 font-iCielPantonLight font-weight-bold">II. Cách nhận chìa khóa mở rương báu:</h4>
 					<div class="box-thele">
