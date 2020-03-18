@@ -787,18 +787,18 @@ class Lucky_Rotation extends React.Component {
 				
 				<div class="content-thele text-center mx-auto pt-4">
 					<h4 class="font18 font-iCielPantonLight font-weight-bold">I. Đối tượng tham gia</h4>
-					<ul className='thele_3'>
-						<li>Tất cả game thủ có tài khoản Scoin. Nếu chưa có <a href="https://scoin.vn/" title="Đăng ký" target="_blank">Đăng ký tại đây</a>. </li>
-						<li>Thời gian SK diễn ra từ 10:00 ngày 19.03 - hết ngày 18.04.2020. Sau khi kết thúc, số chìa khóa sẽ được xóa khỏi hệ thống.</li>
+					<ul className='thele_3' style={{listStyle:'none'}}>
+						<li>&#9679;  Tất cả game thủ có tài khoản Scoin. Nếu chưa có <a href="https://scoin.vn/" title="Đăng ký" target="_blank">Đăng ký tại đây</a>. </li>
+						<li>&#9679;  Thời gian SK diễn ra từ 10:00 ngày 19.03 - hết ngày 18.04.2020. Sau khi kết thúc, số chìa khóa sẽ được xóa khỏi hệ thống.</li>
 					</ul>
 					<h4 class="font18 font-iCielPantonLight font-weight-bold">II. Cách nhận chìa khóa mở rương báu:</h4>
 					<div class="box-thele">
 						<div class="step-thele mx-auto">
 							<p>Nạp thẻ Scoin/ thẻ Scoin vào các game do VTC Mobile phát hành.</p>
-							<ul>
-								<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ Thẻ Scoin sẽ nhận được 2 Điểm</li>
-								<li class="font-iCielPantonBlack text-brown">Mỗi 1 Scoin bạn nạp vào game từ ví Scoin sẽ nhận được 1 Điểm.</li>
-								<li class="font-iCielPantonBlack text-brown">Mỗi 100.000 Điểm bạn nhận được 01 Chìa khóa được hệ thống tự động quy đổi.</li>
+							<ul style={{listStyle:'none'}}>
+								<li class="font-iCielPantonBlack text-brown">&#9679;  Mỗi 1 Scoin bạn nạp vào game từ Thẻ Scoin sẽ nhận được 2 Điểm</li>
+								<li class="font-iCielPantonBlack text-brown">&#9679;  Mỗi 1 Scoin bạn nạp vào game từ ví Scoin sẽ nhận được 1 Điểm.</li>
+								<li class="font-iCielPantonBlack text-brown">&#9679;  Mỗi 100.000 Điểm bạn nhận được 01 Chìa khóa được hệ thống tự động quy đổi.</li>
 							</ul>
 							<div style={{border:'1px solid', padding:10, margin: 10}}>
 								<p style={{marginBottom:5}}>Số điểm đã tích lũy: {turnsBuyInfo.accumulationPoint ? turnsBuyInfo.accumulationPoint.toLocaleString() : 0} Điểm</p>
@@ -808,9 +808,9 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 					<h4 class="font18 font-iCielPantonLight font-weight-bold pt-3">III. Cơ cấu Giải thưởng</h4>
-					<ul className='thele_3'>
-						<li>Tổng số giải đặc biệt - rương báu 5 triệu Scoin: 30 giải. Mỗi ngày 01 giải. Các giải này sẽ được cộng dồn cho ngày tiếp theo, nếu không có người trúng giải ở ngày trước đó.</li>
-						<li>Ngoài các giải đặc biệt, còn có rất nhiều giải Scoin khác. Tất cả giải thưởng sẽ được cộng trực tiếp vào tài khoản của game thủ.</li>
+					<ul className='thele_3' style={{listStyle:'none'}}>
+						<li>&#9679;  Tổng số giải đặc biệt - rương báu 5 triệu Scoin: 30 giải. Mỗi ngày 01 giải. Các giải này sẽ được cộng dồn cho ngày tiếp theo, nếu không có người trúng giải ở ngày trước đó.</li>
+						<li>&#9679;  Ngoài các giải đặc biệt, còn có rất nhiều giải Scoin khác. Tất cả giải thưởng sẽ được cộng trực tiếp vào tài khoản của game thủ.</li>
 					</ul>
 					
         			<p id="VinhDanh"><a href="#" title="Xem kho báu" data-toggle="modal" onClick={this.openGiaiThuong}><img src={btn_xem_kho_bau} width="150" class="img-fluid seeBonus" /></a></p>
